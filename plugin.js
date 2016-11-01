@@ -11,15 +11,33 @@
 		hidpi: true,
 		init: function (editor) {
 			var pluginName = 'typograf',
-				plugin = this,
+				config = {},
 				tp;
 
-			CKEDITOR.scriptLoader.load(plugin.path + 'lib/typograf/dist/typograf.min.js', function () {
+			var rx = new RegExp(pluginName + '_');
+			for (var i in editor.config) {
+				if (!editor.config.hasOwnProperty(i)) {
+					continue;
+				}
+				if (!rx.test(i)) {
+					continue;
+				}
+				config[i.replace(pluginName + '_', '')] = editor.config[i];
+			}
+
+			CKEDITOR.scriptLoader.load(CKEDITOR.plugins.getPath(pluginName) + 'lib/typograf/dist/typograf.min.js', function () {
 
 				tp = new Typograf({
 					lang: CKEDITOR.lang.detect(),
 					mode: 'name'
 				});
+
+				if (config['addSafeTag']) {
+					config['addSafeTag'].filter(function (tmp) {
+						var tags = tmp.split(',');
+						tp.addSafeTag(tags[0], tags[1], tags[2]);
+					});
+				}
 			});
 
 			editor.addCommand(pluginName, {
@@ -31,9 +49,7 @@
 
 					var sel = e.getSelection(),
 						frag = e.getSelectedHtml(),
-						html = frag.getHtml(),
-						editable = e.editable(),
-						range = sel.getRanges()[0];
+						html = frag.getHtml();
 
 					if (CKEDITOR.env.ie) {
 						sel.root.fire('selectionchange');

@@ -1,0 +1,5 @@
+Changelog for ckeditor-plugin-typograf
+
+1.0.0-beta (01.11.2016)
+==============
+- Initial
