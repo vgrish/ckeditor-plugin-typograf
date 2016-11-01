@@ -38,7 +38,7 @@
 					if (CKEDITOR.env.ie) {
 						sel.root.fire('selectionchange');
 					}
-
+					
 					if (html != '') {
 						e.insertHtml(tp.execute(html));
 					}
