@@ -25,7 +25,7 @@
 				config[i.replace(pluginName + '_', '')] = editor.config[i];
 			}
 
-			CKEDITOR.scriptLoader.load(CKEDITOR.plugins.getPath(pluginName) + 'lib/typograf/dist/typograf.min.js', function () {
+			CKEDITOR.scriptLoader.load(CKEDITOR.plugins.getPath(pluginName) + 'vendor/typograf/dist/typograf.min.js', function () {
 
 				tp = new Typograf({
 					lang: CKEDITOR.lang.detect(),
