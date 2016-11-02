@@ -37,9 +37,18 @@
 				});
 
 				if (config['addSafeTag']) {
-					config['addSafeTag'].filter(function (tmp) {
-						var tags = tmp.split(',');
-						tp.addSafeTag(tags[0], tags[1], tags[2]);
+					config['addSafeTag'].filter(function (tags) {
+						switch (tags.length) {
+							case 1:
+								tp.addSafeTag(eval(tags[0][0]));
+								break;
+							case 2:
+								tp.addSafeTag(tags[0][0], tags[1][0]);
+								break;
+							case 3:
+								tp.addSafeTag(tags[0][0], tags[1][0], tags[2][0]);
+								break;
+						}
 					});
 				}
 			});
